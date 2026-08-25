@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="SprocketKit — generated landing page">
+  <title>SprocketKit</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="hero">
+    <div class="container">
+      <h1 class="hero-title">SprocketKit</h1>
+      <div class="badges"><a href="https://github.com/bmoler68/README-to-landing-page" target="_blank" rel="noopener noreferrer"><img src="https://img.shields.io/badge/build-passing-brightgreen.svg" alt="Build"></a><a href="https://github.com/bmoler68/README-to-landing-page" target="_blank" rel="noopener noreferrer"><img src="https://img.shields.io/badge/release-v2.4.1-blue.svg" alt="Release"></a><a href="LICENSE" target="_blank" rel="noopener noreferrer"><img src="https://img.shields.io/badge/license-MIT-yellow.svg" alt="License"></a><a href="https://github.com/bmoler68/README-to-landing-page" target="_blank" rel="noopener noreferrer"><img src="https://img.shields.io/badge/coverage-94%25-success.svg" alt="Coverage"></a><img src="https://img.shields.io/badge/node-%3E%3D20-339933.svg" alt="Node"><img src="https://img.shields.io/badge/status-experimental-orange.svg" alt="Status"></div>
+      <p class="hero-subtitle">
+        <a href="https://github.com/bmoler68/README-2-landing-page-test" target="_blank" rel="noopener noreferrer">View on GitHub</a>
+      </p>
+    </div>
+  </header>
+
+  <main class="container">
+    <nav class="toc" aria-label="Table of contents">
+      <h2>Contents</h2>
+      <ul><li><a href="#table-of-contents">Table of contents</a></li><li><a href="#why-widgets">Why widgets</a></li><li><a href="#at-a-glance">At a glance</a></li><li><a href="#architecture">Architecture</a></li><li class="toc-h3"><a href="#host-shell">Host shell</a></li><li class="toc-h3"><a href="#widget-runtime">Widget runtime</a></li><li class="toc-h3"><a href="#latch-bus">Latch bus</a></li><li><a href="#quick-start">Quick start</a></li><li><a href="#configuration">Configuration</a></li><li><a href="#cli-cookbook">CLI cookbook</a></li><li><a href="#widget-recipes">Widget recipes</a></li><li class="toc-h3"><a href="#workshop-b-panel">Workshop B panel</a></li><li class="toc-h3"><a href="#wide-table-of-catalog-skus">Wide table of catalog SKUs</a></li><li><a href="#observability">Observability</a></li><li><a href="#api-surface">API surface</a></li><li class="toc-h3"><a href="#get-sprockets">`GET /sprockets`</a></li><li class="toc-h3"><a href="#post-panelsnameapply">`POST /panels/{name}:apply`</a></li><li><a href="#shop-floor-playbooks">Shop-floor playbooks</a></li><li><a href="#markdown-fixture-gallery">Markdown fixture gallery</a></li><li class="toc-h3"><a href="#headings-deeper-than-h3">Headings deeper than H3</a></li><li class="toc-h3"><a href="#mixed-paragraph-fixtures">Mixed paragraph fixtures</a></li><li class="toc-h3"><a href="#another-image-after-lots-of-prose">Another image, after lots of prose</a></li><li><a href="#roadmap">Roadmap</a></li><li><a href="#contributing">Contributing</a></li><li><a href="#license">License</a></li></ul>
+    </nav>
+    <article class="content">
+      <p><strong>SprocketKit</strong> is a fictitious widget toolkit for assembling dashboard gadgets: counters, knobs, spark-strips, and “honest clocks” that refuse to show a timezone they cannot prove. It is not a real product — this README is a <em>stress test</em> for <a href="https://github.com/bmoler68/README-to-landing-page.git" rel="noopener noreferrer" target="_blank">README to Landing Page</a>.</p>
+
+<blockquote><p><em>“A widget should click, glow, and confess when it is lying.”</em><br />— <strong>June Pell</strong>, fictional lead designer, Workshop B</p>
+</blockquote>
+<p><img src="https://cdn.sprocketkit.example/images/hero-workbench.png" alt="Hero — kit of dashboard widgets" title="Fictional SprocketKit workbench" /></p>
+
+<p>The image URL above is <strong>invented</strong>. It exists so the converter still sees markdown images without fetching a real photo host.</p>
+
+<h2 id="table-of-contents">Table of contents</h2>
+<ul><li><a href="#why-widgets">Why widgets</a></li><li><a href="#at-a-glance">At a glance</a></li><li><a href="#architecture">Architecture</a><br />- <a href="#host-shell">Host shell</a><br />- <a href="#widget-runtime">Widget runtime</a><br />- <a href="#latch-bus">Latch bus</a></li><li><a href="#quick-start">Quick start</a></li><li><a href="#configuration">Configuration</a></li><li><a href="#cli-cookbook">CLI cookbook</a></li><li><a href="#widget-recipes">Widget recipes</a></li><li><a href="#observability">Observability</a></li><li><a href="#api-surface">API surface</a></li><li><a href="#shop-floor-playbooks">Shop-floor playbooks</a></li><li><a href="#markdown-fixture-gallery">Markdown fixture gallery</a></li><li><a href="#roadmap">Roadmap</a></li><li><a href="#contributing">Contributing</a></li><li><a href="#license">License</a></li></ul>
+<hr />
+<h2 id="why-widgets">Why widgets</h2>
+<p>Product teams keep reinventing the same <strong>little machines</strong>: a status pebble, a range knob, a tally that animates when a ticket closes. Copy-paste works until two knobs disagree about units and a third one draws in <code>canvas</code> for no reason.</p>
+
+<p>SprocketKit treats every gadget as a <strong>sprocket</strong>. Sprockets snap onto a <strong>latch</strong> (a typed event bus). Latches compose into <strong>panels</strong>. Panels can be paused, themed, or hot-swapped without remounting the host app.</p>
+
+<p>You should reach for SprocketKit when:</p>
+
+<ol><li>You need <strong>dozens of small UI machines</strong>, not one giant chart.</li><li>Design wants <strong>click, glow, and disabled</strong> states that match across surfaces.</li><li>Engineers want a <strong>single registry</strong> without giving up local overrides.</li></ol>
+<p>You should <em>not</em> reach for SprocketKit to build a word processor.</p>
+
+<h2 id="at-a-glance">At a glance</h2>
+<table><thead><tr><th>Capability</th><th>What it means in practice</th><th>Maturity</th></tr></thead><tbody><tr><td>Sprocket registry</td><td>Discover widgets by id and slot</td><td><strong>GA</strong></td></tr><tr><td>Latch bus</td><td>Typed events between sprockets</td><td><strong>GA</strong></td></tr><tr><td>Theme lathe</td><td>Tokens for color, click, and glow</td><td><strong>beta</strong></td></tr><tr><td>Ghost preview</td><td>Replay last 72 interactions in the lab</td><td><strong>beta</strong></td></tr><tr><td>Quill captions</td><td>Attach designer notes to any sprocket</td><td><strong>preview</strong></td></tr><tr><td>Knob physics</td><td>Inertia and snap points</td><td><strong>preview</strong></td></tr></tbody></table>
+<p>Inline emphasis check: this sentence uses <strong>bold</strong>, <em>italic</em>, <em><strong>bold italic</strong></em>, <del>strikethrough</del>, <code>inline code</code>, a <a href="https://github.com/bmoler68/README-to-landing-page" rel="noopener noreferrer" target="_blank">named link</a>, an <a href="#cli-cookbook">anchor link</a>, and mixed <code>code **inside** ticks</code> that should stay literal.</p>
+
+<p>Subscript / superscript via HTML: torque is logged at 10<sup>−3</sup> N·m. Ins/del: <ins>added glow token</ins> after <del>legacy hex-only fills</del>.</p>
+
+<h2 id="architecture">Architecture</h2>
+<pre><code class="language-">                    ┌──────────────────────────┐
+   host app   ──►   │       Host shell         │
+   theme file ──►   │  registry · identity     │──► panel UI
+   flags      ──►   │  policy · slots          │
+                    └────────────┬─────────────┘
+                                 │
+                    ┌────────────▼─────────────┐
+                    │     Widget runtime       │
+                    │  sprockets · previews    │
+                    └────────────┬─────────────┘
+                                 │
+                    ┌────────────▼─────────────┐
+                    │        Latch bus         │
+                    │  click · glow · tick     │
+                    └──────────────────────────┘</code></pre>
+<h3 id="host-shell">Host shell</h3>
+<p>The host is <strong>boring on purpose</strong>. It owns the panel DOM, loads the registry, and never paints a knob itself.</p>
+
+<ul><li>Identity: OIDC, plus a fictional <strong>bench token</strong> for kiosks with no browser profile.</li><li>Policy: allow lists per sprocket (<code>render</code>, <code>annotate</code>, <code>rewind</code>).</li><li>Catalog: content-addressed widget bundles; names are just aliases.</li></ul>
+<h3 id="widget-runtime">Widget runtime</h3>
+<p>Sprockets pull props, not the other way around. A widget that throws in <code>render</code> should not take the panel with it.</p>
+
+<ol><li><strong>Mount</strong> into a named slot.</li><li><strong>Latch</strong> onto bus topics the panel declared.</li><li><strong>Paint</strong> using theme tokens only.</li><li><strong>Ack</strong> so Ghost Preview can reconstruct the same click later.</li></ol>
+<h3 id="latch-bus">Latch bus</h3>
+<p>The bus is a tiny, ordered queue. Topics look like <code>click.knob.primary</code> and <code>glow.strip.ok</code>.</p>
+
+<p><img src="https://cdn.sprocketkit.example/images/panel-mixed.png" alt="Panel of mixed widgets" title="Fictional mixed widget panel" /></p>
+
+<p><a href="https://cdn.sprocketkit.example/images/knob-full.png" rel="noopener noreferrer" target="_blank"><img src="https://cdn.sprocketkit.example/images/knob-thumb.png" alt="Linked thumbnail of a knob close-up" /></a></p>
+
+<p>HTML <code>&lt;img&gt;</code> with width/height (allowed by the landing-page sanitizer; URL is still fictional):</p>
+
+<img src="https://cdn.sprocketkit.example/images/spark-strip.png" alt="Fictional spark-strip widget" width="480" height="240" title="HTML img tag" />
+
+
+<h2 id="quick-start">Quick start</h2>
+<p>Requirements: Node <strong>20+</strong>, a bundler, and a sense of humor.</p>
+
+<pre><code class="language-bash"># fictional installer — do not run in a real storefront
+curl -fsSL https://sprocketkit.example/install.sh | sh
+skit init --panel workshop-b --theme brass
+skit sprocket add counter tally-a
+skit preview --bind 127.0.0.1:8787</code></pre>
+<p>Python client (fictional):</p>
+
+<pre><code class="language-python">from sprocketkit import Client, Slot
+
+client = Client(panel="workshop-b", token="bench-demo")
+slot = Slot.parse("hero/left")
+
+for sprocket in client.sprockets(prefix="knob."):
+    state = client.pull(sprocket, slot)
+    print(sprocket.name, state.clicks, "clicks")</code></pre>
+<p>TypeScript snippet with nested backticks in a string:</p>
+
+<pre><code class="language-ts">export const banner = `skit status --json`;
+
+export function latch(ids: string[]): string {
+  return ids.join("~&gt;") || "empty-panel";
+}</code></pre>
+<p>JSON catalog fragment:</p>
+
+<pre><code class="language-json">{
+  "panel": "workshop-b",
+  "version": 12,
+  "sprockets": ["counter.tally", "knob.primary", "clock.honest"],
+  "theme": "brass"
+}</code></pre>
+<p>Plain fenced block with no language tag:</p>
+
+<pre><code class="language-">MOUNT  ok   knob.primary     slot=hero/left
+LATCH  ok   click.knob.primary
+ACK    ok   runtime-17</code></pre>
+<h2 id="configuration">Configuration</h2>
+<p>SprocketKit reads <code>skit.toml</code> first, then environment variables, then flags. Later sources win.</p>
+
+<pre><code class="language-toml">[panel]
+name = "workshop-b"
+theme = "brass"
+
+[bus]
+url = "wss://bus.sprocketkit.example:8788"
+topic = "workshop-b/+/click"
+
+[preview]
+retention = "72h"
+ghost_workers = 4</code></pre>
+<table><thead><tr><th>Flag</th><th>Env</th><th>Default</th><th>Notes</th></tr></thead><tbody><tr><td><code>--panel</code></td><td><code>SKIT_PANEL</code></td><td><em>(required)</em></td><td>Short name, lowercase</td></tr><tr><td><code>--theme</code></td><td><code>SKIT_THEME</code></td><td><code>steel</code></td><td><code>steel</code>, <code>brass</code>, or <code>night</code></td></tr><tr><td><code>--ui.port</code></td><td><code>SKIT_UI_PORT</code></td><td><code>8787</code></td><td>Bind locally in demos</td></tr><tr><td><code>--preview.retention</code></td><td><code>SKIT_PREVIEW_RETENTION</code></td><td><code>72h</code></td><td>Go-duration syntax</td></tr></tbody></table>
+<p>Nested list for builders who skim:</p>
+
+<ul><li><strong>Sprockets</strong><br />- Counter (<code>tally</code>, <code>delta</code>, <code>cap</code>)<br />- Knob (snap points, inertia)<br />- Honest clock (refuses unknown zones)</li><li><strong>Latch</strong><br />- Click, glow, tick<br />- User WASM (preview)</li><li><strong>Emit</strong><br />- Analytics envelope<br />- Webhook (signed)</li></ul>
+<p>Ordered recovery steps:</p>
+
+<ol><li>Confirm the host shell (<code>skit host ping</code>).</li><li>Drain the latch spool (<code>skit bus status</code>).</li><li>If spool &gt; 80%, <strong>pause</strong> non-critical sprockets.</li><li>Resume in this order:<br />1. Registry / theme<br />2. Counters and knobs<br />3. Spark-strips<br />4. Quill captions</li></ol>
+<h2 id="cli-cookbook">CLI cookbook</h2>
+<p>Task list (GFM checkboxes):</p>
+
+<ul><li> <code>skit init</code> scaffolds a panel</li><li> <code>skit sprocket add</code> registers a gadget</li><li> <code>skit theme pack</code> is still preview</li><li> <code>skit quill export --figma</code> is a joke ticket</li></ul>
+<p>Inline commands worth memorizing: <code>skit status</code>, <code>skit panel diff</code>, and <code>skit preview --dry-run</code>.</p>
+
+<p>Blockquote with nested quote:</p>
+
+<blockquote><p>Ghost Preview is not a screenshot.<br />It is a <strong>click machine with a fuse</strong>.</p>
+<blockquote>
+<p>If you rewind past retention, SprocketKit will refuse rather than invent clicks.</p>
+</blockquote>
+</blockquote>
+<h2 id="widget-recipes">Widget recipes</h2>
+<h3 id="workshop-b-panel">Workshop B panel</h3>
+<p>Mount a tally, a brass knob, and an honest clock onto one latch, then emit a 5-second rollup of clicks.</p>
+
+<pre><code class="language-yaml">name: workshop-b
+theme: brass
+nodes:
+  - id: tally
+    type: sprocket.counter
+    slot: hero/left
+  - id: knob
+    type: sprocket.knob
+    slot: hero/center
+  - id: clock
+    type: sprocket.clock
+    honest: true
+  - id: rollup
+    type: reduce.sum
+    input: latch.click
+    step: 5s</code></pre>
+<h3 id="wide-table-of-catalog-skus">Wide table of catalog SKUs</h3>
+<table><thead><tr><th>SKU</th><th>Kind</th><th>Latency</th><th>Notes</th></tr></thead><tbody><tr><td><code>CTR-01</code></td><td>counter</td><td>16 ms</td><td>Caps at 999</td></tr><tr><td><code>KNB-BR</code></td><td>knob</td><td>8 ms</td><td>Brass theme only</td></tr><tr><td><code>CLK-H</code></td><td>clock</td><td>1 s</td><td>Refuses <code>Etc/Unknown</code></td></tr><tr><td><code>SPK-7</code></td><td>spark-strip</td><td>32 ms</td><td>Drops frames on kiosk GPUs</td></tr></tbody></table>
+<p>Alignment in tables is a common converter footgun: left, center, and right columns should all survive.</p>
+
+<h2 id="observability">Observability</h2>
+<p>Metrics are Prometheus-shaped but named like hardware.</p>
+
+<table><thead><tr><th>Metric</th><th>Type</th><th>Meaning</th></tr></thead><tbody><tr><td><code>skit_sprocket_lag_ms</code></td><td>gauge</td><td>How far a widget is behind the latch</td></tr><tr><td><code>skit_panel_commits_total</code></td><td>counter</td><td>Successful panel paints</td></tr><tr><td><code>skit_ghost_preview_seconds</code></td><td>histogram</td><td>Cost of a rewind</td></tr></tbody></table>
+<p>Log line examples (inline + pre):</p>
+
+<p><code>2026-08-24T21:53:11Z WARN runtime-17 spool=81% sprocket=knob.primary</code></p>
+
+<p>Horizontal rule below this paragraph tests <code>&lt;hr&gt;</code> rendering.</p>
+
+<hr />
+<h2 id="api-surface">API surface</h2>
+<p>Base URL (fictional): <code>https://api.sprocketkit.example/v1</code></p>
+
+<h3 id="get-sprockets">`GET /sprockets`</h3>
+<p>Returns widget descriptors. Query params: <code>prefix</code>, <code>limit</code>.</p>
+
+<h3 id="post-panelsnameapply">`POST /panels/{name}:apply`</h3>
+<p>Compiles and hot-swaps a panel. Returns <code>202</code> with a lease id.</p>
+
+<p>Mailto fixture for sanitizer scheme allow-lists: <a href="mailto:ops@sprocketkit.example" rel="noopener noreferrer" target="_blank">ops@sprocketkit.example</a>.</p>
+
+<p>External link with title attribute: <a href="https://docs.sprocketkit.example/workshop-b" title="Fictional handbook" rel="noopener noreferrer" target="_blank">Workshop B handbook</a>.</p>
+
+<h2 id="shop-floor-playbooks">Shop-floor playbooks</h2>
+
+This HTML details/summary block should be stripped or flattened by sanitizer (not in the allow list). If you still see a disclosure widget, sanitizer config changed.
+
+
+<p>Secret-looking but fake: <code>bench-token-demo-not-real</code></p>
+
+
+
+
+<p>Keyboard tags are also typically stripped: press Ctrl+K in the fictional UI.</p>
+
+<p>Script tags must never render: </p>
+
+<p>javascript: links must never survive: <a rel="noopener noreferrer" target="_blank">bad</a></p>
+
+<h2 id="markdown-fixture-gallery">Markdown fixture gallery</h2>
+<h3 id="headings-deeper-than-h3">Headings deeper than H3</h3>
+<p>The generated landing-page TOC usually indexes <strong>H2 and H3 only</strong>. These next headings check whether H4–H6 still appear in the body.</p>
+
+<h4 id="h4-quill-caption-schema">H4 — Quill caption schema</h4>
+<h5 id="h5-attachment-types">H5 — Attachment types</h5>
+<h6 id="h6-imagepng-vs-textplain">H6 — `image/png` vs `text/plain`</h6>
+<h3 id="mixed-paragraph-fixtures">Mixed paragraph fixtures</h3>
+<p>A paragraph with a hard line break (two spaces at the end of the next line)<br />should become a <code>&lt;br&gt;</code> when <code>breaks</code> is enabled.</p>
+
+<p>Autolink: <a href="https://github.com/bmoler68/README-to-landing-page.git" rel="noopener noreferrer" target="_blank">https://github.com/bmoler68/README-to-landing-page.git</a></p>
+
+<p>Escaped punctuation: *not italic*, `not code`, [not a link].</p>
+
+<p>Unicode and emoji: Workshop B keeps a ⚙️ on the bench. Torque is +1.2 N·m. Café notes use “smart quotes” and an em-dash — like this.</p>
+
+<h3 id="another-image-after-lots-of-prose">Another image, after lots of prose</h3>
+<p><img src="https://cdn.sprocketkit.example/images/honest-clock.png" alt="Honest clock widget" title="Fictional honest clock" /></p>
+
+<h2 id="roadmap">Roadmap</h2>
+<table><thead><tr><th>Quarter (fictional)</th><th>Theme</th><th>Status</th></tr></thead><tbody><tr><td>Q1 2026</td><td>Latch bus GA</td><td>Done</td></tr><tr><td>Q2 2026</td><td>WASM sprockets</td><td>In progress</td></tr><tr><td>Q3 2026</td><td>Multi-panel kits</td><td>Planned</td></tr><tr><td>Q4 2026</td><td>Knob physics pack</td><td>Planned</td></tr></tbody></table>
+<pre><code class="language-js">// Highlight-class fixture: fenced js
+const sprockets = ["tally", "knob", "clock"];
+export const roster = sprockets.map((s) =&gt; s.toUpperCase());</code></pre>
+<h2 id="contributing">Contributing</h2>
+<p>This repository is a <strong>conversion fixture</strong>, not a real community project. If you are testing the GitHub Action:</p>
+
+<ol><li>Push this README to <code>main</code> (or run the workflow manually).</li><li>Wait for <a href="https://github.com/bmoler68/README-to-landing-page" rel="noopener noreferrer" target="_blank">bmoler68/readme-to-landing-page</a> to publish <code>gh-pages</code>.</li><li>Point GitHub Pages at <strong><code>gh-pages</code> / <code>(root)</code></strong>, not <code>main</code>.</li></ol>
+<p>Checklist for visual QA on the generated page:</p>
+
+<ul><li> Title is <strong>SprocketKit</strong>, not a fallback</li><li> Badge row appears under the hero</li><li> Auto TOC lists H2/H3 and skips most H4+</li><li> Tables keep headers and body cells</li><li> Fenced code keeps indentation and language</li><li> Task list checkboxes render</li><li> Markdown images are present; only <strong>badge</strong> images load from a real host</li><li> <code>mailto:</code> link works; <code>javascript:</code> link is gone</li><li> Footer mentions MIT from <code>LICENSE</code></li></ul>
+<h2 id="license">License</h2>
+<p>MIT. </p>
+
+<p>The SprocketKit product, Workshop B, and designer quotes are <strong>fiction</strong> created to exercise markdown conversion.</p>
+
+    </article>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <p>
+      Generated from README.md &middot;
+      <a href="https://github.com/bmoler68/README-2-landing-page-test" target="_blank" rel="noopener noreferrer">bmoler68/README-2-landing-page-test</a>
+    </p>
+    <p>License: MIT License</p>
+    </div>
+  </footer>
+</body>
+</html>
