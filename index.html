@@ -21,7 +21,7 @@
   <main class="container">
     <nav class="toc" aria-label="Table of contents">
       <h2>Contents</h2>
-      <ul><li><a href="#table-of-contents">Table of contents</a></li><li><a href="#how-it-works">How it works</a></li><li><a href="#add-the-workflow">Add the workflow</a></li><li><a href="#configure-with-with">Configure with `with:`</a></li><li><a href="#enable-github-pages">Enable GitHub Pages</a></li><li><a href="#what-gets-published">What gets published</a></li><li><a href="#development">Development</a></li><li><a href="#license">License</a></li></ul>
+      <ul><li><a href="#table-of-contents">Table of contents</a></li><li><a href="#how-it-works">How it works</a></li><li><a href="#add-the-workflow">Add the workflow</a></li><li><a href="#configure-with-with">Configure with `with:`</a></li><li><a href="#enable-github-pages">Enable GitHub Pages</a></li><li><a href="#images-in-the-readme">Images in the README</a></li><li><a href="#what-gets-published">What gets published</a></li><li><a href="#development">Development</a></li><li><a href="#license">License</a></li></ul>
     </nav>
     <article class="content">
       <p>This is a <strong>test repository</strong> for <a href="https://github.com/bmoler68/README-to-landing-page" rel="noopener noreferrer" target="_blank">README to Landing Page</a>, a GitHub Action that converts a <code>README.md</code> into a static site and deploys it to GitHub Pages. The action lives in that project; this repo only consumes <code>bmoler68/readme-to-landing-page@v1</code> so the conversion and Pages publish can be checked end to end.</p>
@@ -31,7 +31,7 @@
 <p>The action itself needs no local CLI: add a workflow in any target repository. Project homepage: <a href="https://www.brianmoler.com" rel="noopener noreferrer" target="_blank">brianmoler.com</a>.</p>
 
 <h2 id="table-of-contents">Table of contents</h2>
-<ul><li><a href="#how-it-works">How it works</a></li><li><a href="#add-the-workflow">Add the workflow</a></li><li><a href="#configure-with-with">Configure with <code>with:</code></a></li><li><a href="#enable-github-pages">Enable GitHub Pages</a></li><li><a href="#what-gets-published">What gets published</a></li><li><a href="#development">Development</a></li><li><a href="#license">License</a></li></ul>
+<ul><li><a href="#how-it-works">How it works</a></li><li><a href="#add-the-workflow">Add the workflow</a></li><li><a href="#configure-with-with">Configure with <code>with:</code></a></li><li><a href="#enable-github-pages">Enable GitHub Pages</a></li><li><a href="#images-in-the-readme">Images in the README</a></li><li><a href="#what-gets-published">What gets published</a></li><li><a href="#development">Development</a></li><li><a href="#license">License</a></li></ul>
 <h2 id="how-it-works">How it works</h2>
 <pre><code class="language-">README.md → parse → generate site → push gh-pages → GitHub Pages</code></pre>
 <p>The action runs as a <strong>Docker</strong> container (<code>action.yml</code> → <code>Dockerfile</code>). At runtime it:</p>
@@ -87,6 +87,15 @@ jobs:
 <ol><li>Leave Pages set to <strong>None</strong> (or skip Pages until after the first successful run).</li><li>Add the workflow and run it once (push to <code>main</code>, or <strong>Actions → Run workflow</strong>).</li><li>The action creates <code>gh-pages</code> if it is missing and pushes <code>index.html</code>, <code>styles.css</code>, and <code>assets/</code> to that branch. Your <code>main</code> branch is not changed.</li><li>Return to <strong>Settings → Pages</strong>, choose <strong>Deploy from a branch</strong>, then <strong><code>gh-pages</code></strong> and <strong><code>/ (root)</code></strong>. Refresh the page if <code>gh-pages</code> is not in the list yet.</li></ol>
 <p>After that, each push to <code>main</code> updates <code>gh-pages</code>, and GitHub Pages serves the generated site.</p>
 
+<h2 id="images-in-the-readme">Images in the README</h2>
+<p>Generated HTML is sanitized. <code>&lt;img&gt;</code> tags are allowed, but <code>src</code> may only use <code>http</code> or <code>https</code>. Badge and screenshot URLs on GitHub (for example <code>raw.githubusercontent.com</code> or shields.io) are kept. Schemes such as <code>javascript:</code> and <code>data:</code> are removed.</p>
+
+<p>Relative paths such as <code>![Logo](docs/logo.png)</code> usually survive sanitization, but those files are <strong>not</strong> copied to <code>gh-pages</code>. The published site only contains <code>index.html</code>, <code>styles.css</code>, and an empty <code>assets/</code> folder, so a relative image 404s on Pages.</p>
+
+<p>For images that should appear on the landing page, use an <strong>https</strong> URL. Either of these GitHub forms works (the second redirects to the first):</p>
+
+<pre><code class="language-markdown">![Screenshot](https://raw.githubusercontent.com/OWNER/REPO/main/docs/screenshot.png)
+![Screenshot](https://github.com/OWNER/REPO/raw/main/docs/screenshot.png)</code></pre>
 <h2 id="what-gets-published">What gets published</h2>
 <pre><code class="language-">README.md → landing page → gh-pages branch → GitHub Pages</code></pre>
 <pre><code class="language-">gh-pages branch:
