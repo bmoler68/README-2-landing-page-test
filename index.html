@@ -21,63 +21,25 @@
   <main class="container">
     <nav class="toc" aria-label="Table of contents">
       <h2>Contents</h2>
-      <ul><li><a href="#table-of-contents">Table of contents</a></li><li><a href="#what-it-does">What it does</a></li><li><a href="#at-a-glance">At a glance</a></li><li><a href="#how-it-works">How it works</a></li><li class="toc-h3"><a href="#parse">Parse</a></li><li class="toc-h3"><a href="#generate">Generate</a></li><li class="toc-h3"><a href="#publish">Publish</a></li><li><a href="#add-the-workflow">Add the workflow</a></li><li><a href="#configure-with-with">Configure with `with:`</a></li><li><a href="#enable-github-pages">Enable GitHub Pages</a></li><li><a href="#what-gets-published">What gets published</a></li><li><a href="#runtime-and-tests">Runtime and tests</a></li><li><a href="#markdown-fixture-gallery">Markdown fixture gallery</a></li><li class="toc-h3"><a href="#headings-deeper-than-h3">Headings deeper than H3</a></li><li class="toc-h3"><a href="#mixed-paragraph-fixtures">Mixed paragraph fixtures</a></li><li class="toc-h3"><a href="#another-image-after-prose">Another image after prose</a></li><li><a href="#sanitizer-fixtures">Sanitizer fixtures</a></li><li><a href="#this-test-repository">This test repository</a></li><li><a href="#license">License</a></li></ul>
+      <ul><li><a href="#table-of-contents">Table of contents</a></li><li><a href="#how-it-works">How it works</a></li><li><a href="#add-the-workflow">Add the workflow</a></li><li><a href="#configure-with-with">Configure with `with:`</a></li><li><a href="#enable-github-pages">Enable GitHub Pages</a></li><li><a href="#what-gets-published">What gets published</a></li><li><a href="#development">Development</a></li><li><a href="#license">License</a></li></ul>
     </nav>
     <article class="content">
-      <p><strong>README to Landing Page</strong> is a GitHub Action that converts a repository <code>README.md</code> into a static landing page and publishes it to GitHub Pages. This file is a <strong>conversion fixture</strong>: it describes the real project at <a href="https://github.com/bmoler68/README-to-landing-page.git" rel="noopener noreferrer" target="_blank">bmoler68/README-to-landing-page</a> while exercising headings, tables, code, lists, and sanitizer edge cases.</p>
+      <p>This is a <strong>test repository</strong> for <a href="https://github.com/bmoler68/README-to-landing-page" rel="noopener noreferrer" target="_blank">README to Landing Page</a>, a GitHub Action that converts a <code>README.md</code> into a static site and deploys it to GitHub Pages. The action lives in that project; this repo only consumes <code>bmoler68/readme-to-landing-page@v1</code> so the conversion and Pages publish can be checked end to end.</p>
 
-<blockquote><p>Add a workflow in <strong>your</strong> repository. No local CLI or extra tooling is required.</p>
-</blockquote>
-<p>The badges above are live <a href="https://img.shields.io" rel="noopener noreferrer" target="_blank">Shields.io</a> queries against that repo (CI on <code>ci.yml</code>, latest GitHub release, license, last commit, open issues, top language). They are not hardcoded “passing” stickers.</p>
+<p>The generated landing page is at <a href="https://bmoler68.github.io/README-2-landing-page-test/" rel="noopener noreferrer" target="_blank">bmoler68.github.io/README-2-landing-page-test</a>. It is rebuilt on each push to <code>main</code> by <code>.github/workflows/landing-page.yml</code>. If the site is missing, enable Pages on the <code>gh-pages</code> branch at <code>/ (root)</code> after the first successful workflow run.</p>
 
-<p><img src="https://cdn.readme-to-landing-page.example/images/hero.png" alt="Generated landing page (fixture URL)" title="Invented URL so the converter still sees an image without a real photo host" /></p>
-
-<p>The image URL is <strong>invented</strong>. Only badge images load from a real host.</p>
+<p>The action itself needs no local CLI: add a workflow in any target repository. Project homepage: <a href="https://www.brianmoler.com" rel="noopener noreferrer" target="_blank">brianmoler.com</a>.</p>
 
 <h2 id="table-of-contents">Table of contents</h2>
-<ul><li><a href="#what-it-does">What it does</a></li><li><a href="#at-a-glance">At a glance</a></li><li><a href="#how-it-works">How it works</a><br />- <a href="#parse">Parse</a><br />- <a href="#generate">Generate</a><br />- <a href="#publish">Publish</a></li><li><a href="#add-the-workflow">Add the workflow</a></li><li><a href="#configure-with-with">Configure with <code>with:</code></a></li><li><a href="#enable-github-pages">Enable GitHub Pages</a></li><li><a href="#what-gets-published">What gets published</a></li><li><a href="#runtime-and-tests">Runtime and tests</a></li><li><a href="#markdown-fixture-gallery">Markdown fixture gallery</a></li><li><a href="#sanitizer-fixtures">Sanitizer fixtures</a></li><li><a href="#this-test-repository">This test repository</a></li><li><a href="#license">License</a></li></ul>
-<hr />
-<h2 id="what-it-does">What it does</h2>
-<p>Maintainers already write a README. The action turns that markdown into <code>index.html</code> + <code>styles.css</code>, then pushes the site to a <strong><code>gh-pages</code></strong> branch so GitHub Pages can serve it.</p>
-
-<p>Use it when you want a public landing page that <strong>stays in sync</strong> with the README. Skip it if you already maintain a custom Pages site by hand.</p>
-
-<p>The action is a <strong>Docker</strong> container (<code>runs.using: docker</code> in <code>action.yml</code>). CI on the source repo installs Node <strong>20</strong>, runs <code>npm test</code>, and verifies <code>docker build</code>.</p>
-
-<h2 id="at-a-glance">At a glance</h2>
-<table><thead><tr><th>Piece</th><th>What it is</th><th>Source of truth</th></tr></thead><tbody><tr><td>Action ref</td><td><code>bmoler68/readme-to-landing-page@v1</code></td><td><a href="https://github.com/bmoler68/README-to-landing-page/releases" rel="noopener noreferrer" target="_blank">Releases</a></td></tr><tr><td>Package</td><td><code>readme-to-landing-page</code> <code>1.0.0</code></td><td><code>package.json</code></td></tr><tr><td>Runtime</td><td>Docker image from repo <code>Dockerfile</code></td><td><code>action.yml</code></td></tr><tr><td>Markdown</td><td><a href="https://www.npmjs.com/package/marked" rel="noopener noreferrer" target="_blank">marked</a> <code>^15</code></td><td><code>package.json</code></td></tr><tr><td>HTML filter</td><td><a href="https://www.npmjs.com/package/sanitize-html" rel="noopener noreferrer" target="_blank">sanitize-html</a> <code>^2.14</code></td><td><code>package.json</code></td></tr><tr><td>Tests</td><td><code>node --test test/*.test.js</code></td><td><code>package.json</code> scripts</td></tr><tr><td>License</td><td>MIT</td><td>repo <code>LICENSE</code></td></tr></tbody></table>
-<p>Inline emphasis check: <strong>bold</strong>, <em>italic</em>, <em><strong>bold italic</strong></em>, <del>strikethrough</del>, <code>inline code</code>, a <a href="https://github.com/bmoler68/README-to-landing-page" rel="noopener noreferrer" target="_blank">named link</a>, an <a href="#add-the-workflow">anchor</a>, and <code>code **inside** ticks</code>.</p>
-
-<p>HTML extras the sanitizer allows: H<sub>2</sub>O in copy, 10<sup>3</sup> files, <ins>added TOC</ins>, <del>hand-copied HTML</del>.</p>
-
+<ul><li><a href="#how-it-works">How it works</a></li><li><a href="#add-the-workflow">Add the workflow</a></li><li><a href="#configure-with-with">Configure with <code>with:</code></a></li><li><a href="#enable-github-pages">Enable GitHub Pages</a></li><li><a href="#what-gets-published">What gets published</a></li><li><a href="#development">Development</a></li><li><a href="#license">License</a></li></ul>
 <h2 id="how-it-works">How it works</h2>
-<pre><code class="language-">README.md  →  parse (marked lexer + GFM)
-           →  generate (template + TOC + badges)
-           →  publish (git push to gh-pages)
-           →  GitHub Pages serves / (root)</code></pre>
-<h3 id="parse">Parse</h3>
-<p><code>src/parser.js</code> lexes GFM with <code>breaks: true</code>. It:</p>
+<pre><code class="language-">README.md → parse → generate site → push gh-pages → GitHub Pages</code></pre>
+<p>The action runs as a <strong>Docker</strong> container (<code>action.yml</code> → <code>Dockerfile</code>). At runtime it:</p>
 
-<ul><li>Takes the first <strong>H1</strong> as the page title</li><li>Treats the following badge paragraph (<code>![...](...)</code> / linked badges) as the hero badge row</li><li>Walks headings, paragraphs, lists, tables, code, blockquotes, HTML, and <code>hr</code></li></ul>
-<p>Heading ids are slugified (punctuation stripped, spaces to <code>-</code>).</p>
-
-<h3 id="generate">Generate</h3>
-<p><code>src/generator.js</code> fills <code>templates/default.html</code>. Optional TOC is built from <strong>H2 and H3 only</strong>. Content is sanitized before write.</p>
-
-<h3 id="publish">Publish</h3>
-<p><code>src/publisher.js</code> clones or creates <code>gh-pages</code>, copies the generated site (not the whole source repo), and pushes with <code>GITHUB_TOKEN</code>.</p>
-
-<p><img src="https://cdn.readme-to-landing-page.example/images/pipeline.png" alt="Pipeline diagram (fixture URL)" title="Fictional diagram asset" /></p>
-
-<p><a href="https://github.com/bmoler68/README-to-landing-page" rel="noopener noreferrer" target="_blank"><img src="https://cdn.readme-to-landing-page.example/images/thumb.png" alt="Linked thumbnail fixture" /></a></p>
-
-<p>HTML <code>&lt;img&gt;</code> with width/height (allowed tags; fictional <code>src</code>):</p>
-
-<img src="https://cdn.readme-to-landing-page.example/images/toc.png" alt="Fictional TOC screenshot" width="480" height="240" title="HTML img tag" />
-
-
+<ol><li><strong>Parses</strong> the README with <a href="https://www.npmjs.com/package/marked" rel="noopener noreferrer" target="_blank">marked</a> (GFM). The first H1 becomes the page title. Badge images immediately after that heading become the hero badge row. A TOC is built from H2 and H3 when <code>include-toc</code> is not <code>'false'</code>.</li><li><strong>Generates</strong> <code>index.html</code> and <code>styles.css</code> from templates. HTML is passed through <a href="https://www.npmjs.com/package/sanitize-html" rel="noopener noreferrer" target="_blank">sanitize-html</a>.</li><li><strong>Publishes</strong> only the generated site to the <code>gh-pages</code> branch using <code>GITHUB_TOKEN</code>. The source branch (<code>main</code>) is not rewritten.</li></ol>
+<table><thead><tr><th></th><th></th></tr></thead><tbody><tr><td>Action</td><td><code>bmoler68/readme-to-landing-page@v1</code></td></tr><tr><td>Latest release</td><td>See the <a href="https://github.com/bmoler68/README-to-landing-page/releases/latest" rel="noopener noreferrer" target="_blank">Releases</a> badge above</td></tr><tr><td>Package</td><td><code>readme-to-landing-page</code> 1.0.0</td></tr><tr><td>Tests</td><td><code>npm test</code> (<code>node --test</code>) on Node 20; CI also runs <code>docker build</code></td></tr><tr><td>License</td><td>MIT</td></tr></tbody></table>
 <h2 id="add-the-workflow">Add the workflow</h2>
-<p>In the <strong>target</strong> repository (the project whose README should become a landing page), create <code>.github/workflows/landing-page.yml</code>:</p>
+<p>In the <strong>target repository</strong> (the project whose README should become a landing page), create <code>.github/workflows/landing-page.yml</code>:</p>
 
 <pre><code class="language-yaml">name: Build Landing Page
 
@@ -96,10 +58,10 @@ jobs:
       - uses: actions/checkout@v4
 
       - uses: bmoler68/readme-to-landing-page@v1</code></pre>
-<p>Do <strong>not</strong> create <code>gh-pages</code> yourself, and do <strong>not</strong> point Pages at <code>main</code>. The action publishes a complete static site to the <strong>root</strong> of <code>gh-pages</code>. Using <code>main</code> (<code>/</code> or <code>/docs</code>) would serve the source tree or get overwritten.</p>
+<p>Do <strong>not</strong> create a <code>gh-pages</code> branch yourself, and do <strong>not</strong> point GitHub Pages at <code>main</code>. The action publishes a complete static site to the <strong>root</strong> of <code>gh-pages</code>. Using <code>main</code> (either <code>/ (root)</code> or <code>/docs</code>) would serve the source repo instead of the landing page or get overwritten.</p>
 
 <h2 id="configure-with-with">Configure with `with:`</h2>
-<p>Omit <code>with:</code> to use defaults: root <code>README.md</code>, publish to <code>gh-pages</code>, include TOC.</p>
+<p>The step that uses this action can take optional <code>with:</code> keys. Omit <code>with:</code> entirely to use the defaults (root <code>README.md</code>, publish to <code>gh-pages</code>, include a table of contents).</p>
 
 <pre><code class="language-yaml">      - uses: bmoler68/readme-to-landing-page@v1
         with:
@@ -108,28 +70,22 @@ jobs:
           branch: gh-pages
           include-toc: 'true'
           github-token: ${{ secrets.GITHUB_TOKEN }}</code></pre>
-<table><thead><tr><th>Input</th><th>Description</th><th>Default</th></tr></thead><tbody><tr><td><code>readme-path</code></td><td>README path relative to repo root</td><td><code>README.md</code></td></tr><tr><td><code>output-dir</code></td><td>Working directory before push</td><td><code>site</code></td></tr><tr><td><code>branch</code></td><td>Branch that receives the site</td><td><code>gh-pages</code></td></tr><tr><td><code>include-toc</code></td><td>Include generated TOC (<code>true</code> / <code>false</code>)</td><td><code>true</code></td></tr><tr><td><code>github-token</code></td><td>Token used to push</td><td><code>${{ github.token }}</code></td></tr></tbody></table>
-<p>YAML treats <code>true</code>/<code>false</code> as booleans. Quote them (<code>'true'</code>, <code>'false'</code>) so Actions receives the string the action expects.</p>
+<table><thead><tr><th>Input</th><th>Description</th><th>Default</th></tr></thead><tbody><tr><td><code>readme-path</code></td><td>Path to the README, relative to the repository root</td><td><code>README.md</code></td></tr><tr><td><code>output-dir</code></td><td>Working directory for generated files before they are pushed</td><td><code>site</code></td></tr><tr><td><code>branch</code></td><td>Branch that receives the published site</td><td><code>gh-pages</code></td></tr><tr><td><code>include-toc</code></td><td>Whether the generated page includes a table of contents (<code>true</code> / <code>false</code>)</td><td><code>true</code></td></tr><tr><td><code>github-token</code></td><td>Token used to push to the publish branch</td><td><code>${{ github.token }}</code></td></tr></tbody></table>
+<p>YAML treats <code>true</code>/<code>false</code> as booleans. Quote them (<code>'true'</code>, <code>'false'</code>) so GitHub Actions receives the string the action expects.</p>
 
-<p>You only need <code>github-token</code> if you are not using the default <code>GITHUB_TOKEN</code>. The workflow still needs <code>permissions: contents: write</code>.</p>
+<p>You only need <code>github-token</code> if you are not using the default <code>GITHUB_TOKEN</code>. The workflow still needs <code>permissions: contents: write</code> so the token can push.</p>
 
-<p>Example: README in a subdirectory, no TOC:</p>
+<p>Example: README in a subdirectory, no table of contents:</p>
 
 <pre><code class="language-yaml">      - uses: bmoler68/readme-to-landing-page@v1
         with:
           readme-path: docs/README.md
           include-toc: 'false'</code></pre>
-<p>Nested list of what the workflow must have:</p>
-
-<ul><li><strong>Checkout</strong> the target repo</li><li><strong>Run</strong> <code>bmoler68/readme-to-landing-page@v1</code><br />- Docker pulls/builds from the action’s <code>Dockerfile</code><br />- Parser + generator write <code>site/</code><br />- Publisher pushes <code>gh-pages</code></li><li><strong>Pages</strong> later serves that branch</li></ul>
-<p>Recovery if publish fails:</p>
-
-<ol><li>Confirm <code>permissions: contents: write</code>.</li><li>Confirm the token can push (<code>github-token</code> / <code>GITHUB_TOKEN</code>).</li><li>Re-run the workflow (<code>workflow_dispatch</code> or a push to <code>main</code>).</li><li>Then, in this order:<br />1. Wait until <code>gh-pages</code> exists<br />2. Refresh <strong>Settings → Pages</strong><br />3. Select <strong><code>gh-pages</code> / <code>(root)</code></strong></li></ol>
 <h2 id="enable-github-pages">Enable GitHub Pages</h2>
-<p>Until <code>gh-pages</code> exists, <strong>Settings → Pages</strong> only lists branches that already exist (usually <code>None</code> and <code>main</code>). That is expected.</p>
+<p>Until <code>gh-pages</code> exists, <strong>Settings → Pages</strong> will only list branches that already exist (usually <code>None</code> and <code>main</code>). That is expected.</p>
 
-<ol><li>Leave Pages set to <strong>None</strong> (or skip Pages until after the first successful run).</li><li>Add the workflow and run it once (push to <code>main</code>, or <strong>Actions → Run workflow</strong>).</li><li>The action creates <code>gh-pages</code> if it is missing and pushes <code>index.html</code>, <code>styles.css</code>, and <code>assets/</code>. <code>main</code> is not rewritten.</li><li>Return to <strong>Settings → Pages</strong>, choose <strong>Deploy from a branch</strong>, then <strong><code>gh-pages</code></strong> and <strong><code>/ (root)</code></strong>. Refresh if <code>gh-pages</code> is not in the list yet.</li></ol>
-<p>After that, each push to <code>main</code> updates <code>gh-pages</code>.</p>
+<ol><li>Leave Pages set to <strong>None</strong> (or skip Pages until after the first successful run).</li><li>Add the workflow and run it once (push to <code>main</code>, or <strong>Actions → Run workflow</strong>).</li><li>The action creates <code>gh-pages</code> if it is missing and pushes <code>index.html</code>, <code>styles.css</code>, and <code>assets/</code> to that branch. Your <code>main</code> branch is not changed.</li><li>Return to <strong>Settings → Pages</strong>, choose <strong>Deploy from a branch</strong>, then <strong><code>gh-pages</code></strong> and <strong><code>/ (root)</code></strong>. Refresh the page if <code>gh-pages</code> is not in the list yet.</li></ol>
+<p>After that, each push to <code>main</code> updates <code>gh-pages</code>, and GitHub Pages serves the generated site.</p>
 
 <h2 id="what-gets-published">What gets published</h2>
 <pre><code class="language-">README.md → landing page → gh-pages branch → GitHub Pages</code></pre>
@@ -137,120 +93,18 @@ jobs:
 ├── index.html
 ├── styles.css
 └── assets/</code></pre>
-<p>Task list for first-time setup:</p>
+<h2 id="development">Development</h2>
+<p>Work happens in <a href="https://github.com/bmoler68/README-to-landing-page" rel="noopener noreferrer" target="_blank">bmoler68/README-to-landing-page</a>, not in this consumer repo.</p>
 
-<ul><li> Action published as <code>v1</code> on GitHub</li><li> Consumer workflow in this test repo</li><li> Pages pointed at <code>gh-pages</code> (do this after the first green run)</li><li> Visual QA of tables, TOC, and sanitizer stripping</li></ul>
-<p>Commands operators actually use are GitHub UI + <code>git push</code>, not a CLI named <code>loom</code>.</p>
-
-<blockquote><p>The generated TOC is <strong>not</strong> a backup of this markdown list.<br />It is rebuilt from H2/H3 at generate time.</p>
-<blockquote>
-<p>If <code>include-toc</code> is <code>'false'</code>, the sidebar TOC is omitted.</p>
-</blockquote>
-</blockquote>
-<h2 id="runtime-and-tests">Runtime and tests</h2>
-<pre><code class="language-bash"># in bmoler68/README-to-landing-page
-npm install
+<pre><code class="language-bash">npm install
 npm test
 docker build -t readme-to-landing-page .</code></pre>
-<p>Python is <strong>not</strong> a runtime. TypeScript snippet below is a fixture for fenced <code>ts</code>:</p>
+<p>CI is <a href="https://github.com/bmoler68/README-to-landing-page/blob/main/.github/workflows/ci.yml" rel="noopener noreferrer" target="_blank"><code>.github/workflows/ci.yml</code></a>: <code>test</code> (Node 20, <code>npm test</code>) and <code>docker-build</code>.</p>
 
-<pre><code class="language-ts">export const action = `bmoler68/readme-to-landing-page@v1`;
-
-export function ref(tag: string): string {
-  return tag ? `bmoler68/readme-to-landing-page@${tag}` : action;
-}</code></pre>
-<p><code>package.json</code> fragment (real dependency names):</p>
-
-<pre><code class="language-json">{
-  "name": "readme-to-landing-page",
-  "version": "1.0.0",
-  "license": "MIT",
-  "dependencies": {
-    "@actions/core": "^1.11.1",
-    "@actions/exec": "^1.1.1",
-    "marked": "^15.0.6",
-    "sanitize-html": "^2.14.0"
-  }
-}</code></pre>
-<p>Plain fenced block:</p>
-
-<pre><code class="language-">PARSE   ok   README.md
-GENERATE ok  site/index.html  site/styles.css
-PUBLISH  ok  gh-pages</code></pre>
-<p>CI workflow excerpt (<code>ci.yml</code>):</p>
-
-<pre><code class="language-yaml">name: CI
-on:
-  push:
-    branches: [main, master]
-  pull_request:
-  workflow_dispatch:
-jobs:
-  test:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
-        with:
-          node-version: '20'
-      - run: npm install
-      - run: npm test</code></pre>
-<p>Mailto fixture (sanitizer <code>mailto:</code> allow-list): <a href="mailto:none@example.invalid" rel="noopener noreferrer" target="_blank">does not exist as a project inbox</a>.</p>
-
-<p>External link with title: <a href="https://www.brianmoler.com" title="brianmoler.com" rel="noopener noreferrer" target="_blank">Project homepage</a>.</p>
-
-<h2 id="markdown-fixture-gallery">Markdown fixture gallery</h2>
-<h3 id="headings-deeper-than-h3">Headings deeper than H3</h3>
-<p>Generated TOC indexes <strong>H2 and H3</strong>. These check that H4–H6 still appear in the body.</p>
-
-<h4 id="h4-badge-extraction">H4 — Badge extraction</h4>
-<h5 id="h5-linked-vs-bare-badges">H5 — Linked vs bare badges</h5>
-<h6 id="h6-imgshieldsio-vs-static-svgs">H6 — `img.shields.io` vs static SVGs</h6>
-<h3 id="mixed-paragraph-fixtures">Mixed paragraph fixtures</h3>
-<p>A paragraph with a hard line break (two spaces at the end of the next line)<br />should become a <code>&lt;br&gt;</code> when <code>breaks</code> is enabled.</p>
-
-<p>Autolink: <a href="https://github.com/bmoler68/README-to-landing-page.git" rel="noopener noreferrer" target="_blank">https://github.com/bmoler68/README-to-landing-page.git</a></p>
-
-<p>Escaped punctuation: *not italic*, `not code`, [not a link].</p>
-
-<p>Unicode: “smart quotes”, an em-dash — and a ⚙️ for the Docker runtime.</p>
-
-<h3 id="another-image-after-prose">Another image after prose</h3>
-<p><img src="https://cdn.readme-to-landing-page.example/images/styles.png" alt="Stylesheet fixture" title="Fictional CSS screenshot" /></p>
-
-<table><thead><tr><th>Align left</th><th>Center</th><th>Right</th></tr></thead><tbody><tr><td><code>readme-path</code></td><td><code>true</code></td><td><code>@v1</code></td></tr><tr><td><code>output-dir</code></td><td><code>false</code></td><td><code>gh-pages</code></td></tr></tbody></table>
-<h2 id="sanitizer-fixtures">Sanitizer fixtures</h2>
-
-details/summary is not in the allow list and should flatten or vanish.
-
-
-<p>Not a real secret: <code>github-token</code> is the workflow token, not a password in this file.</p>
-
-
-
-
-<p>Keyboard tags are typically stripped: Ctrl+K.</p>
-
-<p>Script must never render: </p>
-
-<p>javascript: links must never survive: <a rel="noopener noreferrer" target="_blank">bad</a></p>
-
-<p>Horizontal rule follows.</p>
-
-<hr />
-<p>Log-shaped inline code: <code>2026-08-24T21:53:11Z INFO published branch=gh-pages</code></p>
-
-<pre><code class="language-js">const action = "bmoler68/readme-to-landing-page@v1";
-export const jobs = ["test", "docker-build"];</code></pre>
-<h2 id="this-test-repository">This test repository</h2>
-<p><a href="https://github.com/bmoler68/README-2-landing-page-test" rel="noopener noreferrer" target="_blank">README-2-landing-page-test</a> consumes the action. After a successful run:</p>
-
-<ol><li>Wait for the <strong>Build Landing Page</strong> workflow.</li><li>Point GitHub Pages at <strong><code>gh-pages</code> / <code>(root)</code></strong>, not <code>main</code>.</li><li>Confirm live badges match <a href="https://github.com/bmoler68/README-to-landing-page/actions" rel="noopener noreferrer" target="_blank">Actions</a> and <a href="https://github.com/bmoler68/README-to-landing-page/releases/latest" rel="noopener noreferrer" target="_blank">Releases</a> on the source repo.</li></ol>
-<p>Visual QA:</p>
-
-<ul><li> Title is <strong>README to Landing Page</strong></li><li> Badge images load from Shields and match CI / release / license</li><li> Auto TOC lists H2/H3 and skips most H4+</li><li> Tables, task lists, and fenced code survive</li><li> Non-badge images stay as broken/fictional HTTPS URLs</li><li> <code>javascript:</code> link is gone</li></ul>
 <h2 id="license">License</h2>
-<p>MIT, matching <a href="https://github.com/bmoler68/README-to-landing-page/blob/main/LICENSE" rel="noopener noreferrer" target="_blank">bmoler68/README-to-landing-page</a>. Fixture-only image URLs and sanitizer probes in this file are not part of the action’s published API.</p>
+<p>MIT. </p>
+
+<p>Same license as <a href="https://github.com/bmoler68/README-to-landing-page/blob/main/LICENSE" rel="noopener noreferrer" target="_blank">README-to-landing-page</a>.</p>
 
     </article>
   </main>
